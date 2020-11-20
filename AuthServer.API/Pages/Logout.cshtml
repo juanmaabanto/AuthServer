@@ -1,0 +1,69 @@
+@page
+@{
+    ViewData["Title"] = "Cerrar Sesión";
+}
+
+<style type="text/css">
+    .back-logout {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        min-height: 100vh;
+        position: relative;
+    }
+
+    .content {
+        padding-left: 75px;
+        text-align: left;
+    }
+
+    .fondo-standard {
+        overflow: auto;
+        background: url('/images/background-orange.jpg') no-repeat;
+        background-size: cover;
+    }
+
+    .text {
+        color: #fff;
+        font-size: 20px;
+        margin: 0;
+    }
+
+    .title {
+        color: #fff;
+        font-size: 36px;
+        font-weight: 600;
+        margin: 8px 0;
+    }
+
+</style>
+
+<script>
+
+    fetch('./signout', {
+        method: 'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    }).then(res => {
+        if(res.status === 200) {
+            setTimeout(function() {
+                window.location.href = `/oauth/v2/${window.location.search}`;
+            }, 1000);
+        }
+    });
+
+</script>
+
+<div class="fondo-standard">
+    <div class="back-logout">
+        <div class="content">
+            <p class="title">Cerrando Sesión</p>
+            <p class="text">Se esta cerrando la sesión del navegador, espere por favor...</p>
+        </div>
+    </div>
+</div>

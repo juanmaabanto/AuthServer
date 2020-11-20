@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option csharp_namespace = "Expertec.Sigeco.AuthServer.API.Grpc";
+
+package persona;
+
+service Persona {
+    rpc CrearSiNoExiste (PersonaRequest) returns (PersonaReply);
+}
+
+message PersonaRequest {
+    string tipo_persona = 1;
+    string primer_nombre = 2;
+    string segundo_nombre = 3;
+    string apellido_paterno = 4;
+    string apellido_materno = 5;
+    string razon_social = 6;
+    string dni = 7;
+    string ruc = 8;
+}
+
+message PersonaReply {
+    int32 persona_id = 1;
+    string nro_documento = 2;
+    string primer_nombre = 3;
+    string segundo_nombre = 4;
+    string apellido_paterno = 5;
+    string apellido_materno = 6;
+    string razon_social = 7;
+}

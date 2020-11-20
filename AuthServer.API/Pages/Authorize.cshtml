@@ -1,0 +1,63 @@
+@page
+@{
+    ViewData["Title"] = "Autorización";
+}
+
+<form id="form-id" encType="application/x-www-form-urlencoded" method="post">
+    <input id="txtAuthuser" name="authuser" type="text"/>
+    <input id="txtClienteId" name="client_id" type="text"/>
+    <input id="txtRedirectUri" name="redirect_uri" type="text"/>
+    <input id="txtCompanyCode" name="company_code" type="text"/>
+    <input id="txtResponseType" name="response_type" type="text"/>
+    <input id="btnPermitir" name="submit.Accept" type="submit" />
+</form>
+
+<script type="text/javascript">
+    window.common = (function () {
+        var common = {};
+
+        common.sendAuthorizacion = async () => {
+            var urlParams = new URLSearchParams(window.location.search),
+                authuser = urlParams.get('authuser') || '0',
+                clientId = urlParams.get('client_id');
+                
+            authuser = authuser === 'null' ? '0' : authuser;
+
+            document.getElementById("form-id").action = `${window.location.origin}/connect/authorize`;
+            document.getElementById("txtAuthuser").value = authuser;
+            document.getElementById("txtClienteId").value = clientId;
+            document.getElementById("txtCompanyCode").value = urlParams.get('company_code');
+            document.getElementById("txtRedirectUri").value = urlParams.get('redirect_uri');
+            document.getElementById("txtResponseType").value = urlParams.get('response_type');
+
+            try {
+                var response = await fetch(`${window.location.origin}/oauth/check?clientId=${clientId}&authuser=${authuser}`);
+
+                if(typeof response === typeof{} && response.status === 401){
+                    parent.postMessage({ status: 401, error: 'No esta autorizado, tiene que autenticarse.' },new URL(urlParams.get('redirect_uri')).origin);
+                    return;
+                }
+
+                var data = await response.json();
+
+                if(data.permitido) {
+                    document.getElementById("btnPermitir").click();
+                }
+                else {
+                    parent.postMessage({ status: 400, error: 'Debe autorizar la aplicación para usar información de su cuenta.'},new URL(urlParams.get('redirect_uri')).origin);
+                }
+
+            } catch (error) {
+                if(error.response) {
+                    if(error.response.status === 401) {
+                        parent.postMessage({ status: 401, error: 'No esta autorizado, tiene que autenticarse.' },new URL(urlParams.get('redirect_uri')).origin);
+                    }
+                }
+            }
+        };
+
+        return common;
+    })();
+
+    window.common.sendAuthorizacion();
+</script>

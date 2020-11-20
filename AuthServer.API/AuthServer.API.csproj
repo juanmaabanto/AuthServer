@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>Expertec.Sigeco.AuthServer.API</AssemblyName>
+    <RootNamespace>Expertec.Sigeco.AuthServer.API</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Protobuf Include="Protos\persona.proto" GrpcServices="Client"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AspNet.Security.OpenIdConnect.Server" Version="2.0.0"/>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0"/>
+    <PackageReference Include="Dapper" Version="2.0.35"/>
+    <PackageReference Include="Expertec.Sigeco.CrossCutting.EventBus" Version="2.0.1"/>
+    <PackageReference Include="Expertec.Sigeco.CrossCutting.IntegrationEventLog" Version="2.0.1"/>
+    <PackageReference Include="Expertec.Sigeco.CrossCutting.LoggingEvent" Version="3.0.2"/>
+    <PackageReference Include="Google.Protobuf" Version="3.12.3"/>
+    <PackageReference Include="Grpc.Net.Client" Version="2.30.0"/>
+    <PackageReference Include="Grpc.Tools" Version="2.30.0"/>
+    <PackageReference Include="MediatR" Version="8.0.2"/>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.6"/>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6"/>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.6"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.6"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.6"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6"/>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.1"/>
+    <PackageReference Include="Expertec.Sigeco.CrossCutting.EventBusServiceBus" Version="2.0.0"/>
+  </ItemGroup>
+</Project>
